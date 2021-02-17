@@ -5,15 +5,9 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './Components/navbar'
 
-var nb = new Navbar("testing");
-const a = nb.testing(); 
- 
 
 
-
-
-
-ReactDOM.render(a, document.getElementById('root'),);
+ReactDOM.render(<Navbar />, document.getElementById('root'),);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
