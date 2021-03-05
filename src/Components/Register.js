@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react';
 import React, {Component} from 'react'; 
-import './mdc-style.scss'
 
 
 class Register extends React.Component{

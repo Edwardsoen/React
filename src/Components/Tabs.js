@@ -1,5 +1,5 @@
 import React, {Component} from 'react'; 
-import './mdc-style.scss'
+import '../style/test.scss'; 
 import {MDCTabBar} from '@material/tab-bar'; 
 
 
@@ -32,12 +32,11 @@ class Tabs extends React.Component{
                 tabBar.listen('MDCTabBar:activated', function(event) {
                     let tab = tabs[event.detail.index];
                     this.setState({slectedTab:event.detail.index});
-                    this.props.isChanged(event.detail.index); 
+                    this.props.isChanged(this.state.sitesList[event.detail.index]); 
                 }.bind(this));
         
                 
                 }catch(e){
-                console.log(e)
                 }
             };
     }

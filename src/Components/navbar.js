@@ -1,20 +1,12 @@
 
 import React, {Component} from 'react'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect,
-  } from "react-router-dom";
 import Login from './Login';
-import App from './App';
 import Register from './Register';
 import Result from './Result'
 import {MDCDialog} from '@material/dialog';
-import {$,jQuery} from 'jquery';
 import 'node-fetch';
-import { AlarmRounded } from '@material-ui/icons';
+
 
 
 
@@ -77,8 +69,8 @@ class Navbar extends React.Component{
   }
   renderResult(e){
     if(window.location.href.toString().includes("search")){ //FIX THISSSS AHAHAHAHAHHAAH 
-      var searchItem = new URLSearchParams(window.location.search).get("q");  
-      return <Result searchItem = {searchItem}></Result>
+      return <Result></Result>
+
     }
     else{
       return null; 

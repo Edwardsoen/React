@@ -1,7 +1,8 @@
 
 import React, {Component} from 'react'; 
-import './mdc-style.scss'
 import {MDCChipSet} from '@material/chips';
+
+
 
 
 class Tags extends React.Component{
@@ -9,10 +10,7 @@ class Tags extends React.Component{
         super(props)
         this.props = props;
         this.state = { 
-            tagList:[], 
-             
-
-            
+            tagList:[],            
         }; 
     }
     componentDidMount(){
