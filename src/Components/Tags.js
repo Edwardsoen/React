@@ -30,7 +30,8 @@ class Tags extends React.Component{
 
 
     getTagsList(){
-        const url = "http://192.168.111.128:3000/api/tags";
+      const link = "http://192.168.43.176:3000/"; 
+        const url = `${link}/api/tags`;
         const fetch =require('node-fetch');
         fetch(url).then(res => res.json()).then(data => JSON.parse(JSON.stringify(data))["tags"]).then(d => this.setState({tagList:d}));
       }
@@ -43,20 +44,22 @@ class Tags extends React.Component{
             var s = "mdc-chip";
         }
         return(
-            <div class={s} role="row" style = {{background:"grey"}}>
-            <div class="mdc-chip__ripple"></div>
-            <span class="mdc-chip__checkmark" >
-              <svg class="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
-                <path class="mdc-chip__checkmark-path" fill="none" stroke="black"
+          <li key = {title} style = {{listStyle:"none"}}>
+            <div className={s} role="row" style = {{background:"grey"}}>
+            <div className="mdc-chip__ripple"></div>
+            <span className="mdc-chip__checkmark" >
+              <svg className="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
+                <path className="mdc-chip__checkmark-path" fill="none" stroke="black"
                       d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
               </svg>
             </span>
             <span role="gridcell">
-              <span role="checkbox" tabindex="0" aria-checked="false" class="mdc-chip__primary-action">
-                <span class="mdc-chip__text"><span style={{color:"white"}}>{title}</span></span>
+              <span role="checkbox" aria-checked="false" className="mdc-chip__primary-action">
+                <span className="mdc-chip__text"><span style={{color:"white"}}>{title}</span></span>
               </span>
             </span>
           </div>
+          </li>
         );
 
 
@@ -75,7 +78,7 @@ class Tags extends React.Component{
   
           // return jsx; 
           return(
-            <div class="mdc-chip-set mdc-chip-set--filter" role="grid">
+            <div className="mdc-chip-set mdc-chip-set--filter" role="grid">
             {jsx}
             </div>
           );

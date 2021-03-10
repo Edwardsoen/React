@@ -8,21 +8,20 @@ class Tabs extends React.Component{
         super(props)
         this.props = props; 
         this.state = { 
-            sitesList:[], 
+            sitesList:["test", "tesettttt"], 
             isLoaded:false, 
             selectedTab:0, 
             isInitialized: false
-            
         }
-
+        this.updateSitesList = this.updateSitesList.bind(this);
     }
 
     getSitesList(){
-        const url = "http://192.168.111.128:3000/api/sites";
+        const link = "http://192.168.43.176:3000/"; 
+        const url = `${link}/api/sites`;
         const fetch =require('node-fetch');
-        fetch(url).then(res => res.json()).then(data=> this.setState({sitesList:Object.keys(JSON.parse(JSON.stringify(data)))})); //JSON TO KEYS LIST
+        fetch(url).then(res => res.json()).then(data=> this.setState({sitesList:Object.keys(JSON.parse(JSON.stringify(data)))})).then(this.updateSitesList()); //JSON TO KEYS LIST
       };
-
 
     componentDidUpdate(){
         if(this.state.isInitialized == false){
@@ -34,15 +33,10 @@ class Tabs extends React.Component{
                     this.setState({slectedTab:event.detail.index});
                     this.props.isChanged(this.state.sitesList[event.detail.index]); 
                 }.bind(this));
-        
-                
                 }catch(e){
                 }
             };
-    }
-
-
-    
+    };
 
 
     createTab(title, isActive){
@@ -54,24 +48,26 @@ class Tabs extends React.Component{
             var s = "mdc-tab mdc-tab";
             var s2 = "mdc-tab-indicator mdc-tab-indicator"
         }
-        return (
-            <button class={s} tabindex="0" >
-            <span class="mdc-tab__content" >
-              <span class="mdc-tab__text-label" style = {{color:"white"}}>{title}</span>
+        return (   
+            <button className={s} key= {title} >
+            <span className="mdc-tab__content" >
+              <span className="mdc-tab__text-label" style = {{color:"white"}}>{title}</span>
             </span>
-            <span class={s2} >
-              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline "></span>
+            <span className={s2} >
+              <span className="mdc-tab-indicator__content mdc-tab-indicator__content--underline "></span>
             </span>
-            <span class="mdc-tab__ripple"></span>
+            <span className="mdc-tab__ripple"></span>
           </button>
+
         );
     }
     componentDidMount(){
         this.getSitesList(); 
-    }
+    };
 
-
-
+    updateSitesList(){
+        this.props.siteslist(this.state.sitesList); 
+    };
 
 
     render(){
@@ -89,13 +85,8 @@ class Tabs extends React.Component{
                     </div>
                 </div>
             </div>  
-
             </div>
-
-
         )
-
-
     }
 }
 
