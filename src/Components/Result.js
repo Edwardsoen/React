@@ -35,7 +35,7 @@ class Result extends React.Component{
     getImageData(search, siteCode, page){
           //sitesCide = site code from sitseList sitesList data [0] == all
       // const link = "http://192.168.43.176:3000/"; 
-      const link = "http://192.168.111.128:3000/"; 
+      const link = "http://localhost:8000/"; 
       this.controller = new AbortController();
       var signal = this.controller.signal;
       var s = `search=${search}`; 
@@ -46,7 +46,7 @@ class Result extends React.Component{
         var site = `&sites=${siteCode}`;
       }
       var a =  `&page=${page}`; 
-      const url = `${link}/search/all?${s}${site}${a}`;    //${link}/search/all?search=${search}&sites=${siteCode}&page=${page}; 
+      const url = `${link}search?${s}${site}${a}`;    //${link}/search/all?search=${search}&sites=${siteCode}&page=${page}; 
       const fetch = require('node-fetch'); 
       fetch(url, {signal}).then(res => res.json())
           .then(data => JSON.parse(JSON.stringify(data))["data"])

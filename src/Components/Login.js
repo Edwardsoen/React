@@ -48,8 +48,8 @@ class Login extends React.Component{
 
 
     loginUser(){
-      const link = "http://192.168.111.128:3000"; 
-      const url = `${link}/api/login`;
+      const link = "http://localhost:8000/"; 
+      const url = `${link}api/login`;
       const fetch = require('node-fetch'); 
       var data = {username : this.state.username ,  password: this.state.password}; 
       fetch(url, {
@@ -65,7 +65,7 @@ class Login extends React.Component{
     
   
     componentDidMount(){
-        this.loginUser(); 
+        // this.loginUser(); 
         const d = new MDCDialog(document.querySelector('.mdc-dialog')); 
     };
 

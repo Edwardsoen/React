@@ -13,25 +13,26 @@ class Tabs extends React.Component{
             ], 
             isLoaded:false, 
             selectedTab:0, 
-            isInitialized: false
+            isInitialized: ""
         }
         this.updateSitesList = this.updateSitesList.bind(this);
     }
 
     getSitesList(){
         // const link = "http://192.168.43.176:3000/"; 
-        const link = "http://192.168.111.128:3000"; 
-        const url = `${link}/api/sites`;
+        const link = "http://localhost:8000/";  
+        const url = `${link}api/sites`;
         const fetch =require('node-fetch');
         fetch(url).then(res => res.json()).then(data=> 
             JSON.parse(JSON.stringify(data))["sites"]).then(sites => this.setState({sitesList:sites})).then(this.updateSitesList); //JSON TO KEYS LIST
         };
 
     componentDidUpdate(){
-        if(this.state.isInitialized == false){
+        if(this.state.isInitialized == false && document.getElementsByClassName('.mdc-tab-bar') != null ){
             try {
-                const tabBar = new MDCTabBar(document.querySelector('.mdc-tab-bar'));
-                var tabs  = document.querySelectorAll('.mdc-tab');
+                let tabBar = new MDCTabBar(document.querySelector('.mdc-tab-bar'));
+                let tabs  = document.querySelectorAll('.mdc-tab');
+                alert("is initialized")
                 tabBar.listen('MDCTabBar:activated', function(event) {
                     let tab = tabs[event.detail.index];
                     this.setState({slectedTab:event.detail.index});
@@ -39,6 +40,7 @@ class Tabs extends React.Component{
                 }.bind(this));
                 this.setState({isInitialized:true});
                 }catch(e){
+                    console.log(e)
                 }
             };
     };

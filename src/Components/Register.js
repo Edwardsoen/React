@@ -20,8 +20,8 @@ class Register extends React.Component{
     
 
     registerUser(){
-        const link = "http://192.168.111.128:3000"; 
-        const url = `${link}/api/register`;
+        const link = "http://localhost:8000/"; 
+        const url = `${link}api/register`;
         const fetch = require('node-fetch'); 
         var data = {username : this.state.username, password: this.state.password, email: this.state.email}; 
         fetch(url, {

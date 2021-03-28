@@ -64,7 +64,7 @@ class Home extends React.Component{
         return(<div>
             {this.state.clickTimes}
             {this.carousel()}
-            <div  style  = {{height:"100px", width: "100%", textAlign: "center", textalign: "middle"}}><h2 style = {{paddingTop:"30px"}}> Landscape images</h2></div>
+            <div  style  = {{height:"100px", width: "100%", textAlign: "center", textalign: "middle"}}><h2 style = {{paddingTop:"30px"}}> Sample Data</h2></div>
             <Result></Result>
        
 
