@@ -4,13 +4,14 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './Components/navbar'
+import App from './Components/App'
 import { Home } from '@material-ui/icons';
 import Profile from './Components/profile'
 
 
 
 
-ReactDOM.render(<Navbar />, document.getElementById('root'),);
+ReactDOM.render(<App />, document.getElementById('root'),);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -16,91 +16,48 @@ class Navbar extends React.Component{
     super(props);
     this.state = {
       inputValue: '', 
-      openResult:false,
-      loginStatus:"false", //TODO: convert to boolean ><<<
-      username:'', 
-      registerIsClicked: false
+      loginStatus: this.props.loginStatus, //TODO: convert to boolean ><<<
+      username:this.props.username, 
     };
     this.props = props; 
-    this.handleChange = this.handleChange.bind(this); 
-    this.handleLoginStatus = this.handleLoginStatus.bind(this); 
-    this.handleUsername = this.handleUsername.bind(this); 
-    this.handleRegisterClick = this.handleRegisterClick.bind(this); 
-    this.handleLogout = this.handleLogout.bind(this); 
-  }
+    this.handleRightButtonClick = this.handleRightButtonClick.bind(this); 
+    this.handleleftButtonClick = this.handleleftButtonClick.bind(this); 
+   }
 
-
-
-
-  handleChange(e) {
-    this.setState({ inputValue: e.target.value});
-  }
- 
-  componentDidMount(){
-  }
-
-    
-
-  handleLoginClick(){
-    let d = new MDCDialog(document.querySelector('#loginDialog')); 
-    d.open();      
-  };
-
-  handleRegisterClick(){
-    if(this.state.loginStatus == "true"){
-      console.log("istrue")
-      let menu = new MDCMenu(document.querySelector('.mdc-menu'));
-      menu.open = true;
-    }else {
-      console.log("false")
-      let d = new MDCDialog(document.querySelector('#registerDialog'));
-      d.open();
+  componentDidUpdate(){
+    if (this.props.loginStatus != this.state.loginStatus){
+      this.setState({loginStatus: this.props.loginStatus});
+    }
+    if(this.props.username != this.state.username){
+      this.setState({username: this.props.username});
     }
   }
 
-  renderResult(e){
-    if(window.location.href.toString().includes("search")){ //FIX THISSSS rtyytrhsdh53426hbhe5trgdf 
-      return <Result></Result>
-    }
-    else{
-      return <Home></Home>; 
-    } 
-  }; 
 
-  handleLoginStatus(e){
-    this.setState({loginStatus:e})
-    console.log(e)
-    if(e == "true"){
-      let d = new MDCDialog(document.querySelector('#loginDialog')); 
-      console.log(d.isOpen); //fix this
-      d.open();
-      d.close();
-    }
-  };
-  
-  handleUsername(e){
-    this.setState({username:e})
-  }; 
+  handleleftButtonClick(e){ // handle login button click
+    this.props.leftButtonisClicked(true);
+  }
+
+  handleRightButtonClick(e){// handle register click 
+    this.props.rightButtonisClicked(true); 
+  }
+
 
   checkLoggedIn(){//TODO: Convert to boolean //Paramter if Logged in
     var s = {}
-    if(this.state.loginStatus == "false"){
+    if(this.state.loginStatus == false){
       s["left"] = "Login"; 
       s["right"] = "Register";  
       s["button"] = "btn btn-outline-dark"; 
     }
     else { 
+      console.log(this.state.username)
       s["left"] = this.state.username; 
       s["right"] = "Menu"; 
       s["button"] = "btn btn-outline-dark disabled"; 
     }
     return s;
   }
-
-  handleLogout(e){
-    this.setState({loginStatus :  "false"}); 
-  }; 
-
 
 
     render(){
@@ -119,19 +76,15 @@ class Navbar extends React.Component{
                     <button className="btn btn-outline-success" type="submit" style={{color:'white', border:"none"}}> Search</button>
                 </form>
                 </ul>
-                <Login loginStatus = {this.handleLoginStatus} username = {this.handleUsername}></Login>
-                <Register></Register>
-              
-                <a className={this.checkLoggedIn()["button"]} style={{color:'white',border:'none' }} onClick = {this.handleLoginClick} >{this.checkLoggedIn()["left"]}</a>
-                <a className="btn btn-outline-dark"  style={{color:'white',border:'none'}} onClick = {this.handleRegisterClick}>{this.checkLoggedIn()["right"]}
+                <a className={this.checkLoggedIn()["button"]} style={{color:'white',border:'none' }} onClick = {this.handleleftButtonClick} >{this.checkLoggedIn()["left"]}</a>
+                <a className="btn btn-outline-dark"  style={{color:'white',border:'none'}} onClick = {this.handleRightButtonClick}>{this.checkLoggedIn()["right"]}
                 <div class = "toolbar mdc-menu-surface--anchor">
-                <Menu isLoggedOut = {this.handleLogout}></Menu>
                 </div>
                 </a>
                 </div>
             </div>
           </nav>
-          {this.renderResult()}
+          {/* {this.renderResult()} */}
           
     
             </div>

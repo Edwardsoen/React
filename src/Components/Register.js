@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import React, {Component} from 'react'; 
+import {MDCDialog} from '@material/dialog';
 
 
 class Register extends React.Component{
@@ -36,6 +37,14 @@ class Register extends React.Component{
         }, 
         )
     };
+
+    componentDidMount(){
+        const d = new MDCDialog(document.querySelector('.mdc-dialog')); 
+        d.open();
+        d.listen('MDCDialog:closed', function(event){
+          this.props.isClosed("closed")
+        }.bind(this)); 
+    }; 
 
     checkPassword(e){ //check if password == confirmpassword 
         

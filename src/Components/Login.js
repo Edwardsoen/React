@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {MDCDialog} from '@material/dialog';
+import { InvertColorsOffRounded } from '@material-ui/icons';
 
 
 
@@ -23,7 +24,8 @@ class Login extends React.Component{
 
 
     handleCheckbox(e){ 
-      this.setState({isChecked:e.target.value}); 
+      var b = this.state.isChecked = !this.state.isChecked; 
+      this.setState({isChecked:b })
     };
 
     handleUsernameChange(e){
@@ -37,13 +39,16 @@ class Login extends React.Component{
       data = JSON.parse(JSON.stringify(data)); 
       this.setState({isLoggedIn: data["isLoggedIn"]}); 
       this.setState({isRegistered:data["isRegistered"]}); 
-      if("username" in data) { //if logged in via cookieeeee
-        this.props.username(data["username"]);
-
-      }else { 
+      // this.props.loginStatus(this.state.isLoggedIn); 
+      // this.props.username()
+      if(data["isLoggedIn"]){ //if loggeed in 
+        this.props.loginStatus(this.state.isLoggedIn); 
         this.props.username(this.state.username);
+        const d = new MDCDialog(document.querySelector('.mdc-dialog')); 
+        d.open();
+        d.close();
       }
-      this.props.loginStatus(this.state.isLoggedIn); 
+
     }
 
 
@@ -51,31 +56,40 @@ class Login extends React.Component{
       const link = "http://localhost:8000/"; 
       const url = `${link}api/login`;
       const fetch = require('node-fetch'); 
-      var data = {username : this.state.username ,  password: this.state.password}; 
+      var data = {username : this.state.username ,  password: this.state.password, rememberMe: this.state.isChecked}; 
       fetch(url, {
           method: "POST", 
           headers: {
               'Content-Type': 'application/json',
               "Accept": "application/json"
           },
-          credentials: 'include', 
+          // credentials: 'include', 
           body: JSON.stringify(data)
       }, 
       ).then( data => data.json()).then(d => this.parseResponse(d)); 
     };
     
   
+
     componentDidMount(){
-        // this.loginUser(); 
-        this.loginUser(); 
         const d = new MDCDialog(document.querySelector('.mdc-dialog')); 
+        d.open();
+        d.listen('MDCDialog:closed', function(event){
+          this.props.isClosed("closed")
+        }.bind(this)); 
     };
+
+    handleLoggedIn(){
+      if(this.state.isLoggedIn){
+        const d = new MDCDialog(document.querySelector('.mdc-dialog')); 
+        d.open();
+        d.close()
+      }
+    }
 
     handleForgotPassword(){
       alert("too badddd ")
     }
-
-
 
 
     render(){
@@ -93,7 +107,7 @@ class Login extends React.Component{
                 <div className = "mb-3">
                     <label className= "form-label" htmlFor = "password">Password</label>
                     <input type = "password" id= "LoginPassword" className = "form-control" onChange = {this.handlePasswordChange}></input>
-                    <input type = "checkbox" onChange = {this.handleCheckbox}></input> 
+                    <input type = "checkbox" onClick = {this.handleCheckbox}></input> 
                     <label htmlFor = "rememberMe" style = {{margin:'3px'}}> Remember me </label>
                     <hr style = {{borderStyle: "none"}}></hr>
                      <input type = "commit"  defaultValue = "Login" className = "btn btn-primary" style = {{width : "100%"}} onClick = {this.loginUser} ></input>

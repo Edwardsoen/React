@@ -16,7 +16,6 @@ class Menu extends React.Component{
 
     componentDidMount(){
         let menu = new MDCMenu(document.querySelector('.mdc-menu'));
-     
         // menu.open = true;
     }
 
