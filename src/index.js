@@ -15,7 +15,7 @@ import Buttons from './Components/Buttons'
 
 
 
-ReactDOM.render(<Buttons />, document.getElementById('root'),);
+ReactDOM.render(<App />, document.getElementById('root'),);
 
 
 reportWebVitals();

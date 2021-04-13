@@ -8,6 +8,7 @@ import '../style/index.css'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Cookies from 'js-cookie';
 import { map } from 'jquery';
+import Buttons from './Buttons';
 
 
 
@@ -91,10 +92,13 @@ class Result extends React.Component{
        if(b[key]){
          a.push(key)
        }
-     })}
+       
+     })
+    }
     catch(err){
       console.log(err)
     }
+    
     finally {
       return a.toString();
     }
@@ -151,6 +155,7 @@ class Result extends React.Component{
     }
 
     handleTagChange(e){
+
       this.controller.abort(); 
       this.setState({currentPage:1}); 
       this.setState({imagesData:[]}); 
@@ -165,7 +170,7 @@ class Result extends React.Component{
       else {
         return(   
           <div>
-            
+            <Buttons></Buttons>
         <Tags tagHash = {this.handleTagChange}></Tags>
         <Tabs isChanged = {this.handleTabChange} siteslist = {this.appendSitesList}></Tabs>   
         </div>
@@ -177,6 +182,7 @@ class Result extends React.Component{
     render(){
         return( 
             <div>
+              
               {this.renderTagsAndTabs()}
           
                <InfiniteScroll

@@ -36,7 +36,7 @@ class App extends React.Component{
 
     
   renderResult(e){
-    if(window.location.href.toString().includes("search")){ //FIX THISSSS rtyytrhsdh53426hbhe5trgdf 
+    if(window.location.href.toString().includes("search")){ //FIX THISSSS  
       return <Result></Result>
     }
     else{
