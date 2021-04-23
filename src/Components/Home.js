@@ -1,4 +1,4 @@
-import { ExtensionRounded } from '@material-ui/icons';
+import { ExtensionRounded, ThreeSixty, ThumbUpOutlined } from '@material-ui/icons';
 import React, {Component} from 'react'; 
 import Navbar from './navbar';
 import Result from './Result';
@@ -9,9 +9,34 @@ class Home extends React.Component{
         super(props)
         this.props = props; 
         this.state = {
+          websocket_data : "",
+          webSocket :""
+          // websocket: ""
         }
+        this.sendDatatoSocket = this.sendDatatoSocket.bind(this); 
         
     }; 
+
+    componentDidMount(){ 
+
+          var url = 'ws://localhost:8000/api/socket';
+          var webSocket = new WebSocket(url);
+          webSocket.onopen = function(event){
+              webSocket.send("Sent")
+          }
+          this.setState({webSocket: webSocket}); 
+
+
+          webSocket.onmessage = function(event){
+              this.setState({websocket_data:event.data})
+          }.bind(this)
+    }
+
+
+    sendDatatoSocket(){
+      this.state.webSocket.send("Send")
+    }
+
 
   
 
@@ -64,7 +89,8 @@ class Home extends React.Component{
         return(<div>
             {this.state.clickTimes}
             {this.carousel()}
-            <div  style  = {{height:"100px", width: "100%", textAlign: "center", textalign: "middle"}}><h2 style = {{paddingTop:"30px"}}> Sample Data</h2></div>
+            <div  style  = {{height:"100px", width: "100%", textAlign: "center", textalign: "middle"}}><h2 style = {{paddingTop:"30px"}}> WebSocket Testing: {this.state.websocket_data} </h2></div>
+            <button onClick = {this.sendDatatoSocket} style = {{marginLeft:"42%", marginRight: "40%", backgroundColor: "grey"}}> CLICK ME TO UPDATE SERVER'S LCOAL TIME </button>
             <Result></Result>
        
 

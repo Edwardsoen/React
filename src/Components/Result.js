@@ -60,8 +60,12 @@ class Result extends React.Component{
       }).then(res => res.json())
         .then(data => JSON.parse(JSON.stringify(data))["data"])
         .then(d => this.setState({imagesData:this.state.imagesData.concat(d)}))
+        .then(console.log("FETCH DONE"))
         .catch(error => {console.log(error)}); 
+      console.log("SYNCHROUBNSDJALKJDS")
+
     };
+      
 
     
     componentDidMount(){
