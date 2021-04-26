@@ -15,13 +15,13 @@ class Tags extends React.Component{
             isInitialized:false, 
             tagStatus:{} //TAGID: ISCHECKED (BOOLEAN)
         }; 
-    };
+    }
 
 
 
     componentDidMount(){
         this.getTagsList(); 
-    };
+    }
     componentDidUpdate(){
       if(!this.state.isInitialized){
         try { 
@@ -29,11 +29,14 @@ class Tags extends React.Component{
           var i;
           var chipData = {}; 
           var chipId = {}
-          chipSet.chips.forEach((value, i) => {
-             var isTrueSet = (value["primaryAction_"]["ariaChecked"] == 'true'); //string to boolean
+          for(i =0; i<= chipSet.chips.length -1 ; i ++){
+             //check if chip is checekd
+             var isTrueSet = (chipSet.chips[i]["primaryAction_"]["ariaChecked"] == 'true'); //string to boolean
+            // chipData[chipSet.chips[i]["id"]] = isTrueSet;
+            // chipData[this.state.tagList[i]] = isTrueSet;
             chipData[i] = isTrueSet;
             chipId[chipSet.chips[i]["id"]] =  i
-          });
+          };
           this.setState({tagStatus:chipData}); 
 
 
@@ -53,8 +56,8 @@ class Tags extends React.Component{
 
       }catch(e) {
           console.log(e);
-      };
-      };
+      }
+      } 
     };
 
     
@@ -69,7 +72,7 @@ class Tags extends React.Component{
         fetch(url, { 
           credentials: 'include' //change this
         }).then(res => res.json()).then(data => JSON.parse(JSON.stringify(data))["tags"]).then(d => this.setState({tagList:d}));
-      };
+      }
       
 
     createChip = (title, isSelected) => {
@@ -96,19 +99,21 @@ class Tags extends React.Component{
           </div>
           </li>
         );
-    };
+
+
+    }
     
     createChipSet(chipList){
+        var jsx =[];
         if (chipList.length ==0) { //if ajax return null 
           return null;
         } 
         else // if data is received
-        { 
-          
-          var jsx = chipList.map(chip => {
-            this.createChip(chip, true);
-          })
-
+        { let i ; 
+          for(i = 0; i <= chipList.length -1; i++){
+            jsx.push(this.createChip(chipList[i], true)); 
+          }
+  
           // return jsx; 
           return(
             <div className="mdc-chip-set mdc-chip-set--filter" role="grid">
@@ -123,9 +128,12 @@ class Tags extends React.Component{
             <div>
                 {this.createChipSet(this.state.tagList)}
             </div>
-        );
-    };
-};
+        
+
+        )
+    }
+    
+}
 
 
 export default Tags; 

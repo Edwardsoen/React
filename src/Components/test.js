@@ -35,15 +35,17 @@
 // console.log("SYNC2")
 
 
-var url = 'ws://localhost:8000/api/socket';
-const WebSocket = require('ws');
-var webSocket = new WebSocket(url);
+test = () => { 
+    return new Promise((resolve, reject ) => {
+        console.log("testing asnyc")
+        resolve("testig")
+        return Promise.resolve().then(console.log("eh"))
 
-webSocket.onopen = function(event){
-    webSocket.send("senttt")
+    })
 }
 
 
-webSocket.onmessage = function(event){
-    console.log(event)
-}
+
+console.log("SYNC1")
+test()
+console.log("SYNC2")

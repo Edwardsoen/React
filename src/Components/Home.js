@@ -1,4 +1,5 @@
 
+import { WbSunnySharp } from '@material-ui/icons';
 import React, {Component} from 'react'; 
 import Result from './Result';
 
@@ -13,23 +14,43 @@ class Home extends React.Component{
           // websocket: ""
         }
         this.sendDatatoSocket = this.sendDatatoSocket.bind(this); 
-        
     }; 
 
     componentDidMount(){ 
 
-          var url = 'ws://localhost:8000/api/socket';
-          var webSocket = new WebSocket(url);
-          webSocket.onopen = function(event){
-              webSocket.send("Sent");
-          };
-          this.setState({webSocket: webSocket}); 
-
-
-          webSocket.onmessage = function(event){
-              this.setState({websocket_data:event.data});
-          }.bind(this);
+      this.connectWebSocket()
+          // var url = 'ws://localhost:8000/api/socket';
+          // var webSocket = new WebSocket(url);
+          // webSocket.onopen = function(event){
+          //     webSocket.send("Sent");
+          // };
+          // this.setState({webSocket: webSocket}); 
+          // webSocket.onmessage = function(event){
+          //     this.setState({websocket_data:event.data});
+          // }.bind(this);
     };
+
+
+    connectWebSocket(){ 
+      return new Promise(function(resolve, reject) {
+        var url = 'ws://localhost:8000/api/socket';
+        // resolve('ws://localhost:8000/api/socket');
+        return Promise.resolve().then(d => new WebSocket(url))
+        .then(ws => {
+          // ws.onopen = (e) => {ws.send("send")};
+          ws.onmessage = (e) => {console.log(e.data)};
+        }
+        );
+        
+        // var webSocket = new WebSocket(url);s
+        // webSocket.onopen = function(event){
+        //     webSocket.send("Sent");
+        // };
+        // this.setState({webSocket: webSocket}); 
+      })
+      
+    }
+
 
 
     sendDatatoSocket(){
