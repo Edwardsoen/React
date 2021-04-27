@@ -18,7 +18,6 @@ class App extends React.Component{
             loginStatus: false, //TODO: convert to boolean ><<<
             username:'', 
             componentToBeRendered: ""
-
         }; 
         this.props = props; 
         this.handleLoginStatus = this.handleLoginStatus.bind(this); 

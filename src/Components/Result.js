@@ -6,8 +6,6 @@ import Tags from './Tags';
 import Tabs from './Tabs';
 import '../style/index.css'
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Cookies from 'js-cookie';
-import { map } from 'jquery';
 import Buttons from './Buttons';
 
 

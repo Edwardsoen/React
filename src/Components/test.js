@@ -39,7 +39,7 @@ test = () => {
     return new Promise((resolve, reject ) => {
         console.log("testing asnyc")
         resolve("testig")
-        return Promise.resolve().then(console.log("eh"))
+        return Promise.resolve().then(d => "a").then(d => console.log(d))
 
     })
 }

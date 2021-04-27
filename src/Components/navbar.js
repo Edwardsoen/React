@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MDCMenu} from '@material/menu'
 import Menu from './Menu';
+import { ThreeDRotation } from '@material-ui/icons';
 
 
 class Navbar extends React.Component{

@@ -18,38 +18,19 @@ class Home extends React.Component{
 
     componentDidMount(){ 
 
-      this.connectWebSocket()
-          // var url = 'ws://localhost:8000/api/socket';
-          // var webSocket = new WebSocket(url);
-          // webSocket.onopen = function(event){
-          //     webSocket.send("Sent");
-          // };
-          // this.setState({webSocket: webSocket}); 
-          // webSocket.onmessage = function(event){
-          //     this.setState({websocket_data:event.data});
-          // }.bind(this);
+    
+          var url = 'ws://localhost:8000/api/socket';
+          var webSocket = new WebSocket(url);
+          webSocket.onopen = function(event){
+              webSocket.send("Sent");
+          };
+          this.setState({webSocket: webSocket}); 
+          webSocket.onmessage = function(event){
+              this.setState({websocket_data:event.data});
+          }.bind(this);
     };
 
 
-    connectWebSocket(){ 
-      return new Promise(function(resolve, reject) {
-        var url = 'ws://localhost:8000/api/socket';
-        // resolve('ws://localhost:8000/api/socket');
-        return Promise.resolve().then(d => new WebSocket(url))
-        .then(ws => {
-          // ws.onopen = (e) => {ws.send("send")};
-          ws.onmessage = (e) => {console.log(e.data)};
-        }
-        );
-        
-        // var webSocket = new WebSocket(url);s
-        // webSocket.onopen = function(event){
-        //     webSocket.send("Sent");
-        // };
-        // this.setState({webSocket: webSocket}); 
-      })
-      
-    }
 
 
 
@@ -109,8 +90,8 @@ class Home extends React.Component{
         return(<div>
             {this.state.clickTimes}
             {this.carousel()}
-            <div  style  = {{height:"100px", width: "100%", textAlign: "center", textalign: "middle"}}><h2 style = {{paddingTop:"30px"}}> WebSocket Testing: {this.state.websocket_data} </h2></div>
-            <button onClick = {this.sendDatatoSocket} style = {{marginLeft:"42%", marginRight: "40%", backgroundColor: "grey"}}> CLICK ME TO UPDATE SERVER'S LCOAL TIME </button>
+            <div  style  = {{height:"100px", width: "100%", textAlign: "center", textalign: "middle"}}><h2 style = {{paddingTop:"30px"}} id = "websocket"> WebSocket Testing: {this.state.websocket_data} </h2></div>
+            <button id = "websocketbutton" onClick = {this.sendDatatoSocket} style = {{marginLeft:"42%", marginRight: "40%", backgroundColor: "grey"}}> CLICK ME TO UPDATE SERVER'S LCOAL TIME </button>
             <Result></Result>
        
 
